@@ -7,7 +7,7 @@ const config: Types.Core.GameConfig = {
   backgroundColor: '#33A5E7',
   physics: {
     default: 'arcade',
-    arcade: { gravity: { y: 0 }},
+    arcade: { gravity: { y: 0 }, debug: true },
   },
   scale: {
     mode: Scale.ScaleModes.ENVELOP,

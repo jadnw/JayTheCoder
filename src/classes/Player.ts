@@ -44,8 +44,10 @@ export default class Player extends Character {
     this.add(this.player)
 
     const body = this.body as Physics.Arcade.Body
-    body.setSize(this.player.width * 0.5, this.player.height * 0.05)
-    body.setOffset(this.player.width * -0.3, this.player.height - 20)
+    body.setBounce(1, 1)
+    body.setCollideWorldBounds(true)
+    body.setSize(this.player.width - 6, this.player.height / 6)
+    body.setOffset((-this.player.width + 6) / 2, this.player.height / 3 )
   }
 
   update() {
