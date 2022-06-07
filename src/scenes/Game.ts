@@ -6,6 +6,8 @@ import Player from '../classes/Player'
 
 export default class GameScene extends Scene {
   private player!: Player
+  private overlapsLayer!: Phaser.Tilemaps.TilemapLayer
+  private overlapedTiles!: Phaser.Tilemaps.Tile[]
 
   constructor() {
     super(SceneKeys.Game)
@@ -21,9 +23,9 @@ export default class GameScene extends Scene {
 
     this.player = new Player(this, this.scale.width / 2, this.scale.height / 2)
 
-    const overlapsLayer = map.createLayer('Overlaps', tileset)
+    this.overlapsLayer = map.createLayer('Overlaps', tileset)
     const borderLayer = map.createLayer('Border', tileset)
-    overlapsLayer.setCollisionByProperty({ collides: true })
+    this.overlapsLayer.setCollisionByProperty({ collides: true })
     borderLayer.setCollisionByProperty({ collides: true })
 
     this.physics.add.collider(this.player, borderLayer)
@@ -34,6 +36,13 @@ export default class GameScene extends Scene {
 
   update() {
     this.player.update()
+    const tile = this.overlapsLayer.getTileAtWorldXY(this.player.x, this.player.y)
+
+    if (tile) {
+      this.overlapsLayer.alpha = 0.4
+    } else {
+      this.overlapsLayer.alpha = 1
+    }
   }
 
   private initCamera() {
